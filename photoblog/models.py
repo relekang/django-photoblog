@@ -14,6 +14,7 @@ class Location (models.Model):
 
 class Photo (models.Model):
     title = models.CharField(max_length=200, verbose_name=_('title'))
+    date_uploaded = models.DateField(editable=False, auto_now_add=True)
     file = models.ImageField(upload_to='photoblog/', verbose_name=_('file'))
     category = models.ForeignKey(Category, related_name='photos', verbose_name=_('category'))
     location = models.ForeignKey(Location, null=True, blank=True, related_name='photos', verbose_name=_('location'))
