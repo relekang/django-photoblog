@@ -4,7 +4,9 @@
 
     {% if photo %}
         <div class="span12">
-            <img src="{{ photo.thumb_big }}" alt="{{ title }}" class="thumbnail">
+            {% with thumb=photo.thumb_big %}
+                <img src="{{ thumb.url }}" alt="{{ title }}" style="width: {{ thumb.width}}px;" class="thumbnail">
+            {% endwith %}
         </div>
     {% endif %}
 {% endblock %}

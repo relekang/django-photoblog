@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from sorl.thumbnail import get_thumbnail
+
 
 class Category (models.Model):
     name = models.CharField(max_length=50, verbose_name=_('name'))
@@ -22,8 +24,8 @@ class Photo (models.Model):
     location = models.ForeignKey(Location, null=True, blank=True, related_name='photos', verbose_name=_('location'))
 
     def thumb(self, geometry_string, crop=None):
-        # FIXME, implement sorl-thumbnail
-        return self.file.url
+        thumb = get_thumbnail(self.file, geometry_string, crop=crop)
+        return thumb
 
     def thumb_big(self):
         return self.thumb(geometry_string='800')
