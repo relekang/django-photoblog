@@ -20,3 +20,16 @@ class Photo (models.Model):
     file = models.ImageField(upload_to='photoblog/', verbose_name=_('file'))
     category = models.ForeignKey(Category, related_name='photos', verbose_name=_('category'))
     location = models.ForeignKey(Location, null=True, blank=True, related_name='photos', verbose_name=_('location'))
+
+    def thumb(self, geometry_string, crop=None):
+        # FIXME, implement sorl-thumbnail
+        return self.file.url
+
+    def thumb_big(self):
+        return self.thumb(geometry_string='800')
+
+    def thumb_medium(self):
+        return self.thumb(geometry_string='400')
+
+    def thumb_small(self):
+        return self.thumb(geometry_string='150x150', crop='center')

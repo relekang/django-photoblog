@@ -1,0 +1,10 @@
+{% extends "photoblog/base.html" %}
+
+{% block content %}
+
+    {% if photo %}
+        <div class="span12">
+            <img src="{{ photo.thumb_big }}" alt="{{ title }}" class="thumbnail">
+        </div>
+    {% endif %}
+{% endblock %}
