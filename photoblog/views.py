@@ -16,7 +16,7 @@ def index (request):
         'date_as_title': getattr(settings, 'PHOTOBLOG_DATE_AS_TITLE', False)
     })
 
-def photo (request, id):
+def view_photo (request, id):
     photo = get_object_or_404(
         Photo.objects.prefetch_related('tags').select_related('category', 'location'),
         pk=id,
