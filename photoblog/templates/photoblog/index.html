@@ -15,7 +15,7 @@
                     {% endif %}
 
                     {% if photo.description %}{{ photo.description }}{% endif %}
-                    <a href="/admin/django/photoblog/photo/{{ photo.pk }}/" class="pull-right">Rediger</a>
+                    {% if user.is_authenticated %}<a href="/admin/django/photoblog/photo/{{ photo.pk }}/" class="pull-right">Rediger</a>{% endif %}
                     {% if photo.location %}<i class="icon-globe"></i> {{ photo.location.name }}  {% endif %}
                     {% if photo.exif.camera %}<i class="icon-camera"></i> {{ photo.exif.camera }} {% endif %}
                     {% if photo.exif.date_taken %}<i class="icon-calendar"></i> {{ photo.exif.date_taken }} {% endif %}
