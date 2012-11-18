@@ -31,3 +31,14 @@
         </div>
     {% endif %}
 {% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script>
+    $(document).ready(function(){
+        var width = $('.one-photo img').width();
+        window.console.log(width);
+        $('.one-photo .photo-meta').width(width);
+    });
+    </script>
+{% endblock %}
