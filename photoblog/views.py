@@ -7,7 +7,7 @@ from photoblog.models import Photo
 
 def index (request):
     try:
-        photo = Photo.objects.filter(date_published__lte=datetime.now())[0]
+        photo = Photo.objects.filter(date_published__lte=datetime.now()).prefetch_related('tags').select_related('category', 'location').order_by('-date_published')[0]
     except:
         raise Http404
 
