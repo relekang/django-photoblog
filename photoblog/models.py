@@ -9,19 +9,32 @@ class Category (models.Model):
 
     class Meta:
         verbose_name = 'Category'
-        verbose_name = 'Categories'
+        verbose_name_plural = 'Categories'
+
+    def __unicode__(self):
+        return self.name
 
 class Location (models.Model):
     name = models.CharField(max_length=80, verbose_name=_('name'))
 
+    def __unicode__(self):
+        return self.name
+
+class Tag (models.Model):
+    title = models.CharField(max_length=80, verbose_name=_('name'))
+
+    def __unicode__(self):
+        return self.title
+
 class Photo (models.Model):
-    title = models.CharField(max_length=200, verbose_name=_('title'))
+    title = models.CharField(max_length=200, blank=True, verbose_name=_('title'))
     date_uploaded = models.DateField(editable=False, auto_now_add=True)
     date_published = models.DateTimeField(verbose_name=_('publish date'))
     description = models.TextField(blank=True, verbose_name=_('description'))
     file = models.ImageField(upload_to='photoblog/', verbose_name=_('file'))
-    category = models.ForeignKey(Category, related_name='photos', verbose_name=_('category'))
+    category = models.ForeignKey(Category, null=True, blank=True, related_name='photos', verbose_name=_('category'))
     location = models.ForeignKey(Location, null=True, blank=True, related_name='photos', verbose_name=_('location'))
+    tags = models.ManyToManyField(Tag, null=True, blank=True, related_name='photos', verbose_name=_('tags'))
 
     def thumb(self, geometry_string, crop=None):
         thumb = get_thumbnail(self.file, geometry_string, crop=crop)
@@ -35,3 +48,6 @@ class Photo (models.Model):
 
     def thumb_small(self):
         return self.thumb(geometry_string='150x150', crop='center')
+
+    def exif(self):
+        return {}
