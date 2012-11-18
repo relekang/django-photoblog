@@ -1,4 +1,5 @@
 {% extends "photoblog/base.html" %}
+{% load photoblog %}
 
 {% block content %}
 
@@ -15,15 +16,25 @@
                     {% endif %}
 
                     {% if photo.description %}{{ photo.description }}{% endif %}
-                    {% if user.is_authenticated %}<a href="/admin/django/photoblog/photo/{{ photo.pk }}/" class="pull-right">Rediger</a>{% endif %}
-                    {% if photo.location %}<i class="icon-globe"></i> {{ photo.location.name }}  {% endif %}
-                    {% if photo.exif.camera %}<i class="icon-camera"></i> {{ photo.exif.camera }} {% endif %}
-                    {% if photo.exif.date_taken %}<i class="icon-calendar"></i> {{ photo.exif.date_taken }} {% endif %}
+                    {% if user.is_authenticated %}<a href="/admin/django/photoblog/photo/{{ photo.pk }}/" class="pull-right">Edit</a>{% endif %}
+                    <p>
+                        {% if photo.location %}<i class="icon-globe"></i> {{ photo.location.name }}{% endif %}
+                        {% if photo.exif.Model %}
+                            <i class="icon-camera"></i> {{ photo.exif.Model }}
+                            {% if photo.exif.42036 %} - {{ photo.exif.42036 }}{% endif %}
+                        {% endif %}
+                        {% if photo.exif.DateTimeOriginal %}<i class="icon-calendar"></i> {{ photo.exif.DateTimeOriginal|format_exif_date }} {% endif %}
+                    </p>
+                    <p>
+                    {% if photo.exif.ExposureTime %}<strong>Shutterspeed</strong> {% if photo.exif.ExposureTime.0 == 1 %}1/{% endif %}{{ photo.exif.ExposureTime.1 }}{% endif %}
+                    {% if photo.exif.FNumber %}<strong>F-number:</strong> {{ photo.exif.FNumber.0 }} {% endif %}
+                    {% if photo.exif.ISOSpeedRatings %}<strong>ISO:</strong> {{ photo.exif.ISOSpeedRatings }} {% endif %}
+                    </p>
                     <!--Published: {{ photo.date_published|date:"d.m.y H.i" }}-->
                     {% if photo.tags.all %}
                         <p>
-                        <strong>Tags:</strong>
-                        {% for tag in photo.tags.all %}{{ tag.title }}{% if forloop.last %}.{% else %}, {% endif %}{% endfor %}
+                            <strong>Tags:</strong>
+                            {% for tag in photo.tags.all %}{{ tag.title }}{% if forloop.last %}.{% else %}, {% endif %}{% endfor %}
                         </p>
                     {% endif %}
                 </div>

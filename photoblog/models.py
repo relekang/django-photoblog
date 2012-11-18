@@ -1,7 +1,16 @@
 # -*- coding: utf-8 -*-
+from django.core.cache import cache
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from sorl.thumbnail import get_thumbnail
+
+try:
+    from PIL import Image
+    from PIL.ExifTags import TAGS
+except ImportError:
+    import Image
+    from ExifTags import TAGS
+
 
 
 class Category (models.Model):
@@ -50,4 +59,19 @@ class Photo (models.Model):
         return self.thumb(geometry_string='150x150', crop='center')
 
     def exif(self):
-        return {}
+        exif_data = cache.get(self.exif_cache_key())
+        if exif_data is None:
+            data = {}
+            photo = Image.open(self.file)
+            info = photo._getexif()
+            for tag, value in info.items():
+                decoded = TAGS.get(tag, tag)
+                data[decoded] = value
+
+            cache.set(self.exif_cache_key(), data)
+            exif_data = data
+
+        return exif_data
+
+    def exif_cache_key(self):
+        return "exif%s" % self.pk
