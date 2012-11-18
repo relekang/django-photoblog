@@ -3,9 +3,30 @@
 {% block content %}
 
     {% if photo %}
-        <div class="span12">
+        <div class="one-photo">
             {% with thumb=photo.thumb_big %}
-                <img src="{{ thumb.url }}" alt="{{ title }}" style="width: {{ thumb.width}}px;" class="thumbnail">
+                <img src="{{ thumb.url }}" alt="{{ photo.title }}"
+                     class="thumbnail {% if thumb.ratio == 1 %}square{% elif thumb.is_portrait %}portrait{% else %}landscape{% endif %}">
+                <div class="photo-meta">
+                    {% if date_as_title %}
+                        <p class="lead centered-text">{{ photo.date_published|date:"d.m.y" }}</p>
+                    {% elif photo.title %}
+                        <p class="lead centered-text">{{ photo.title }}</p>
+                    {% endif %}
+
+                    {% if photo.description %}{{ photo.description }}{% endif %}
+                    <a href="/admin/django/photoblog/photo/{{ photo.pk }}/" class="pull-right">Rediger</a>
+                    {% if photo.location %}<i class="icon-globe"></i> {{ photo.location.name }}  {% endif %}
+                    {% if photo.exif.camera %}<i class="icon-camera"></i> {{ photo.exif.camera }} {% endif %}
+                    {% if photo.exif.date_taken %}<i class="icon-calendar"></i> {{ photo.exif.date_taken }} {% endif %}
+                    <!--Published: {{ photo.date_published|date:"d.m.y H.i" }}-->
+                    {% if photo.tags.all %}
+                        <p>
+                        <strong>Tags:</strong>
+                        {% for tag in photo.tags.all %}{{ tag.title }}{% if forloop.last %}.{% else %}, {% endif %}{% endfor %}
+                        </p>
+                    {% endif %}
+                </div>
             {% endwith %}
         </div>
     {% endif %}

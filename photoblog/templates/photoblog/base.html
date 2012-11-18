@@ -2,10 +2,11 @@
 <html>
 <head>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}photoblog.css" rel="stylesheet">
     <title>Photoblog</title>
 </head>
 <body>
-    <div class="container-fluid">
+    <div id="photoblog" class="container-fluid">
         {% block content %}{% endblock %}
     </div>
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>

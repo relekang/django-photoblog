@@ -1,0 +1,48 @@
+#photoblog{
+  .one-photo{
+    margin: 50px auto;
+
+    img{
+      margin: 0 auto;
+
+      &.portrait{
+        height: 800px;
+        width: auto;
+      }
+      &.landscape{
+        height: auto;
+        width: 800px;
+      }
+      &.square{
+        width: 800px;
+      }
+    }
+    .photo-meta{
+      width: 800px;
+      margin: 4px auto;
+    }
+  }
+  .centered-text{
+    text-align: center;
+  }
+}
+@media screen and (max-height: 800px){
+  #photoblog{
+    .one-photo{
+      img{
+        &.portrait{
+
+        }
+        &.landscape{
+
+        }
+        &.square{
+          width: 600px;
+        }
+      }
+      .photo-meta{
+        width: 600px;
+      }
+    }
+  }
+}
