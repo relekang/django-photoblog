@@ -25,11 +25,13 @@
                         {% endif %}
                         {% if photo.exif.DateTimeOriginal %}<i class="icon-calendar"></i> {{ photo.exif.DateTimeOriginal|format_exif_date }} {% endif %}
                     </p>
-                    <p>
-                    {% if photo.exif.ExposureTime %}<strong>Shutterspeed</strong> {% if photo.exif.ExposureTime.0 == 1 %}1/{% endif %}{{ photo.exif.ExposureTime.1 }}{% endif %}
-                    {% if photo.exif.FNumber %}<strong>F-number:</strong> {{ photo.exif.FNumber.0 }} {% endif %}
-                    {% if photo.exif.ISOSpeedRatings %}<strong>ISO:</strong> {{ photo.exif.ISOSpeedRatings }} {% endif %}
-                    </p>
+                    {% if extra_exif %}
+                        <p>
+                        {% if photo.exif.ExposureTime %}<strong>Shutterspeed</strong> {% if photo.exif.ExposureTime.0 == 1 %}1/{% endif %}{{ photo.exif.ExposureTime.1 }}{% endif %}
+                        {% if photo.exif.FNumber %}<strong>F-number:</strong> {{ photo.exif.FNumber.0 }} {% endif %}
+                        {% if photo.exif.ISOSpeedRatings %}<strong>ISO:</strong> {{ photo.exif.ISOSpeedRatings }} {% endif %}
+                        </p>
+                    {% endif %}
                     <!--Published: {{ photo.date_published|date:"d.m.y H.i" }}-->
                     {% if photo.tags.all %}
                         <p>
