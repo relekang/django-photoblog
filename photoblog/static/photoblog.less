@@ -26,12 +26,35 @@
     text-align: center;
   }
 }
-@media screen and (max-height: 800px){
+@media screen and (max-width: 600px){
+  #photoblog{
+    .one-photo{
+      img{
+        margin: -4px;
+
+        &.portrait{
+          width: 100%;
+          height: auto;
+        }
+        &.landscape{
+
+        }
+        &.square{
+
+        }
+      }
+      .photo-meta{
+        width: 100%;
+      }
+    }
+  }
+}
+@media screen and (max-height: 900px){
   #photoblog{
     .one-photo{
       img{
         &.portrait{
-
+          height: 600px;
         }
         &.landscape{
 
