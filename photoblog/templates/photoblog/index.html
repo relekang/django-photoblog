@@ -1,6 +1,15 @@
 {% extends "photoblog/base.html" %}
 {% load photoblog %}
 
+{% block title %}{% if photo.title %}{{ photo.title }} - {% endif %}{{ block.super }}{% endblock %}
+
+{% block extra_head %}
+    {{ block.super }}
+    {% if photo.description and not index %}
+        <meta name="description" content="{{ photo.description }}">
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 
     {% if photo %}
@@ -15,7 +24,10 @@
                         <p class="lead centered-text">{{ photo.title }}</p>
                     {% endif %}
 
-                    {% if photo.description %}{{ photo.description }}{% endif %}
+                    {% if photo.description and not description_as_meta_tag_only %}
+                        <p>{{ photo.description }}</p>
+                    {% endif %}
+
                     {% if user.is_authenticated %}<a href="/admin/django/photoblog/photo/{{ photo.pk }}/" class="pull-right">Edit</a>{% endif %}
                     <p>
                         {% if photo.location %}<i class="icon-globe"></i> {{ photo.location.name }}{% endif %}

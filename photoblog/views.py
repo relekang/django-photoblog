@@ -13,6 +13,7 @@ def index (request):
 
     return render(request, 'photoblog/index.html', {
         'photo': photo,
+        'index': True,
         'date_as_title': getattr(settings, 'PHOTOBLOG_DATE_AS_TITLE', False),
         'extra_exif': getattr(settings, 'PHOTOBLOG_EXTRA_EXIF', False),
     })

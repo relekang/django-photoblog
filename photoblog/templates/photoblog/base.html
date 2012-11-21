@@ -3,7 +3,8 @@
 <head>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}photoblog.css" rel="stylesheet">
-    <title>Photoblog</title>
+    <title>{% block title %}Photoblog{% endblock %}</title>
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
     <div id="photoblog" class="container-fluid">

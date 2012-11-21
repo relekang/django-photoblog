@@ -40,6 +40,7 @@ class Photo (models.Model):
     date_uploaded = models.DateField(editable=False, auto_now_add=True)
     date_published = models.DateTimeField(verbose_name=_('publish date'))
     description = models.TextField(blank=True, verbose_name=_('description'))
+    description_as_meta_tag_only = models.BooleanField(default=True, verbose_name=_('view description only as meta-tag'))
     file = models.ImageField(upload_to='photoblog/', verbose_name=_('file'))
     category = models.ForeignKey(Category, null=True, blank=True, related_name='photos', verbose_name=_('category'))
     location = models.ForeignKey(Location, null=True, blank=True, related_name='photos', verbose_name=_('location'))
