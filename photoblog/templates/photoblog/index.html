@@ -24,7 +24,7 @@
                         <p class="lead centered-text">{{ photo.title }}</p>
                     {% endif %}
 
-                    {% if photo.description and not description_as_meta_tag_only %}
+                    {% if photo.description and not photo.description_as_meta_tag_only %}
                         <p>{{ photo.description }}</p>
                     {% endif %}
 
