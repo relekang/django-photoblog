@@ -8,7 +8,7 @@
             {% with thumb=photo.thumb_big %}
                 <img src="{{ thumb.url }}" alt="{{ photo.title }}"
                      class="thumbnail {% if thumb.ratio == 1 %}square{% elif thumb.is_portrait %}portrait{% else %}landscape{% endif %}">
-                <div class="photo-meta">
+                <div class="photo-meta centered-text">
                     {% if date_as_title %}
                         <p class="lead centered-text">{{ photo.date_published|date:"d.m.y" }}</p>
                     {% elif photo.title %}
@@ -43,15 +43,4 @@
             {% endwith %}
         </div>
     {% endif %}
-{% endblock %}
-
-{% block js %}
-    {{ block.super }}
-    <script>
-    $(document).ready(function(){
-        var width = $('.one-photo img').width();
-        window.console.log(width);
-        $('.one-photo .photo-meta').width(width);
-    });
-    </script>
 {% endblock %}
