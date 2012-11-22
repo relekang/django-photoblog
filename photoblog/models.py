@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.core.cache import cache
 from django.db import models
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from sorl.thumbnail import get_thumbnail
 
@@ -10,8 +11,6 @@ try:
 except ImportError:
     import Image
     from ExifTags import TAGS
-
-
 
 class Category (models.Model):
     name = models.CharField(max_length=50, verbose_name=_('name'))
@@ -23,17 +22,26 @@ class Category (models.Model):
     def __unicode__(self):
         return self.name
 
+    def number_of_photos(self):
+        return self.photos.all().count()
+
 class Location (models.Model):
     name = models.CharField(max_length=80, verbose_name=_('name'))
 
     def __unicode__(self):
         return self.name
 
+    def number_of_photos(self):
+        return self.photos.all().count()
+
 class Tag (models.Model):
     title = models.CharField(max_length=80, verbose_name=_('name'))
 
     def __unicode__(self):
         return self.title
+
+    def number_of_photos(self):
+        return self.photos.all().count()
 
 class Photo (models.Model):
     title = models.CharField(max_length=200, blank=True, verbose_name=_('title'))
@@ -59,6 +67,11 @@ class Photo (models.Model):
     def thumb_small(self):
         return self.thumb(geometry_string='150x150', crop='center')
 
+    def thumb_small_as_html(self):
+        return mark_safe('<img src="%s">' % self.thumb_small().url)
+    thumb_small_as_html.allow_tags = True
+    thumb_small_as_html.short_description = 'image'
+
     def exif(self):
         exif_data = cache.get(self.exif_cache_key())
         if exif_data is None:
@@ -76,3 +89,6 @@ class Photo (models.Model):
 
     def exif_cache_key(self):
         return "exif%s" % self.pk
+
+    def list_of_tags(self):
+        return ', '.join([tag.title for tag in self.tags.all()])
