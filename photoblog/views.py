@@ -32,7 +32,7 @@ def view_photo (request, id):
     })
 
 def archive(request):
-    photos = Photo.objects.all()
+    photos = Photo.objects.filter(date_published__lte=datetime.now())
     return render(request, 'photoblog/archive.html', {
         'photos': photos,
     })
