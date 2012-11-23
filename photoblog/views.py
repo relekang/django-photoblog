@@ -31,8 +31,8 @@ def view_photo (request, id):
         'extra_exif': getattr(settings, 'PHOTOBLOG_EXTRA_EXIF', False),
     })
 
-def archive(request):
-    photos = Photo.objects.filter(date_published__lte=datetime.now())
+def archive (request):
+    photos = Photo.objects.filter(date_published__lte=datetime.now()).prefetch_related('tags').select_related('category', 'location')
     return render(request, 'photoblog/archive.html', {
         'photos': photos,
     })

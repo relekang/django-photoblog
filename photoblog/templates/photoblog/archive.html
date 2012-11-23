@@ -6,7 +6,7 @@
     <h1>Archive</h1>
     {% for photo in photos %}
     {% with thumb=photo.thumb_small %}
-    <div class="photo">
+    <div class="photo"{% if photo.category %} data-category="{{ photo.category.name }}"{% endif %}{% if photo.location %} data-location="{{ photo.location }}"{% endif %}{% if photo.tags.all.count %} data-tags="{% for tag in photo.tags.all %}{{ photo.tag }} {% endfor %}"{% endif %}>
         <a href="{% url photoblog_view_photo photo.pk %}">
         <img src="{{ thumb.url }}" alt="{{ photo.title }}">
         <div class="photo-meta">
