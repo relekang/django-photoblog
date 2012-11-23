@@ -24,9 +24,37 @@
       font-family: "Helvetica Neue", Helvetica, sans-serif;
     }
   }
-  .centered-text{
-    text-align: center;
+  .archive{
+      width: 200px;
+      margin: 0 auto;
+      .photo{
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+        float:left;
+        position: relative;
+        .photo-meta{
+          width: 100%;
+          display: none;
+          position: absolute;
+          bottom: 0;
+          text-align: right;
+          background: rgba(0,0,0, 0.5);
+          color: white;
+          .lead{
+            margin: 4px 8px;
+          }
+        }
+        &:hover{
+          .photo-meta{
+            display: block;
+          }
+        }
+    }
   }
+}
+.centered-text{
+  text-align: center;
 }
 @media screen and (max-width: 600px){
   #photoblog{
@@ -68,6 +96,49 @@
       .photo-meta{
         width: 600px;
       }
+    }
+  }
+}
+
+@media screen and (min-width: 402px){
+  #photoblog{
+    .archive{
+      width: 400px;
+    }
+  }
+}
+@media screen and (min-width: 802px){
+  #photoblog{
+    .archive{
+      width: 800px;
+    }
+  }
+}
+@media screen and (min-width: 1202px){
+  #photoblog{
+    .archive{
+      width: 1200px;
+    }
+  }
+}
+@media screen and (min-width: 1602px){
+  #photoblog{
+    .archive{
+      width: 1600px;
+    }
+  }
+}
+@media screen and (min-width: 2002px){
+  #photoblog{
+    .archive{
+      width: 2000px;
+    }
+  }
+}
+@media screen and (min-width: 2402px){
+  #photoblog{
+    .archive{
+      width: 2400px;
     }
   }
 }

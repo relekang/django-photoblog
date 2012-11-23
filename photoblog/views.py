@@ -30,3 +30,9 @@ def view_photo (request, id):
         'date_as_title': getattr(settings, 'PHOTOBLOG_DATE_AS_TITLE', False),
         'extra_exif': getattr(settings, 'PHOTOBLOG_EXTRA_EXIF', False),
     })
+
+def archive(request):
+    photos = Photo.objects.all()
+    return render(request, 'photoblog/archive.html', {
+        'photos': photos,
+    })

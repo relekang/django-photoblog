@@ -1,0 +1,20 @@
+{% extends "photoblog/base.html" %}
+
+{% block content %}
+
+<div class="archive">
+    <h1>Archive</h1>
+    {% for photo in photos %}
+    {% with thumb=photo.thumb_small %}
+    <div class="photo">
+        <a href="{% url photoblog_view_photo photo.pk %}">
+        <img src="{{ thumb.url }}" alt="{{ photo.title }}">
+        <div class="photo-meta">
+            <p class="lead">{{ photo.date_published|date:"d.m.y" }}</p>
+        </div>
+        </a>
+    </div>
+    {% endwith %}
+    {% endfor %}
+</div>
+{% endblock %}

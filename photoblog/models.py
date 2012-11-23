@@ -65,7 +65,7 @@ class Photo (models.Model):
         return self.thumb(geometry_string='400')
 
     def thumb_small(self):
-        return self.thumb(geometry_string='150x150', crop='center')
+        return self.thumb(geometry_string='200x200', crop='center')
 
     def thumb_small_as_html(self):
         return mark_safe('<img src="%s">' % self.thumb_small().url)
