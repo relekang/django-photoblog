@@ -54,6 +54,9 @@ class Photo (models.Model):
     location = models.ForeignKey(Location, null=True, blank=True, related_name='photos', verbose_name=_('location'))
     tags = models.ManyToManyField(Tag, null=True, blank=True, related_name='photos', verbose_name=_('tags'))
 
+    class Meta:
+        ordering = ('-date_published',)
+
     def thumb(self, geometry_string, crop=None):
         thumb = get_thumbnail(self.file, geometry_string, crop=crop)
         return thumb
