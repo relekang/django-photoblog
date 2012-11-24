@@ -4,14 +4,17 @@
     cd django-photoblog
     python setup.py install
 
-    # add photoblog to installed apps
+#### Add photoblog to installed apps
     INSTALLED_APPS = (
         ...
         'photoblog',
     )
 
-    # add to urlspattern in urls.py
+#### Add to urlspattern in urls.py
     url(r'^photos/', include('photoblog.urls')),
+
+## Dependecies
+* sorl-thumbnail
 
 
 ## This is work in progress
