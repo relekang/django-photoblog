@@ -6,17 +6,32 @@
 
 <div class="archive">
     <h1>Archive</h1>
-    {% for photo in photos %}
-    {% with thumb=photo.thumb_small %}
-    <div class="photo"{% if photo.category %} data-category="{{ photo.category.name }}"{% endif %}{% if photo.location %} data-location="{{ photo.location }}"{% endif %}{% if photo.tags.all.count %} data-tags="{% for tag in photo.tags.all %}{{ photo.tag }} {% endfor %}"{% endif %}>
-        <a href="{% url photoblog_view_photo photo.pk %}">
-        <img src="{{ thumb.url }}" alt="{{ photo.title }}">
-        <div class="photo-meta">
-            <p class="lead">{{ photo.date_published|date:"d.m.y" }}</p>
+    <div class="row-fluid">
+        {% for photo in photos %}
+        {% with thumb=photo.thumb_small %}
+        <div class="photo"{% if photo.category %} data-category="{{ photo.category.name }}"{% endif %}{% if photo.location %} data-location="{{ photo.location }}"{% endif %}{% if photo.tags.all.count %} data-tags="{% for tag in photo.tags.all %}{{ photo.tag }} {% endfor %}"{% endif %}>
+            <a href="{% url photoblog_view_photo photo.pk %}">
+            <img src="{{ thumb.url }}" alt="{{ photo.title }}">
+            <div class="photo-meta">
+                <p class="lead">{{ photo.date_published|date:"d.m.y" }}</p>
+            </div>
+            </a>
         </div>
-        </a>
+        {% endwith %}
+        {% endfor %}
     </div>
-    {% endwith %}
-    {% endfor %}
+    {% if photos.paginator.num_pages > 1 %}
+        <div class="pagination pagination-centered">
+            <ul>
+                {% for page in photos.paginator.page_range %}
+                    {% if page == photos.number %}
+                        <li class="active"><a href="#">{{ page }}</a></li>
+                    {% else %}
+                        <li><a href="?page={{ page }}">{{ page }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
