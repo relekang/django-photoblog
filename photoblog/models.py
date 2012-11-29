@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.core.cache import cache
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -62,6 +63,9 @@ class Photo (models.Model):
     def save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
         expire_page_cache('photoblog_view_photo', args=[self.pk])
+
+    def get_absolute_url(self):
+        return reverse('photoblog_view_photo', args=[self.pk])
 
     def thumb(self, geometry_string, crop=None):
         thumb = get_thumbnail(self.file, geometry_string, crop=crop)
