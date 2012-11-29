@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.cache import cache_page
 from photoblog.models import Photo
 
 def index (request):
@@ -19,6 +20,7 @@ def index (request):
         'extra_exif': getattr(settings, 'PHOTOBLOG_EXTRA_EXIF', False),
     })
 
+@cache_page
 def view_photo (request, id):
     photo = get_object_or_404(
         Photo.objects.prefetch_related('tags').select_related('category', 'location'),

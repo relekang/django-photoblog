@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.templatetags.thumbnail import is_portrait
+from photoblog.util import expire_page_cache
 
 try:
     from PIL import Image
@@ -57,6 +58,10 @@ class Photo (models.Model):
 
     class Meta:
         ordering = ('-date_published',)
+
+    def save(self, *args, **kwargs):
+        super(Photo, self).save(*args, **kwargs)
+        expire_page_cache('photoblog_view_photo', args=[self.pk])
 
     def thumb(self, geometry_string, crop=None):
         thumb = get_thumbnail(self.file, geometry_string, crop=crop)

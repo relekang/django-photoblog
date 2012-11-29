@@ -28,7 +28,6 @@
                         <p>{{ photo.description }}</p>
                     {% endif %}
 
-                    {% if user.is_authenticated %}<a href="/admin/django/photoblog/photo/{{ photo.pk }}/" class="pull-right">Edit</a>{% endif %}
                     <p>
                         {% if photo.location %}<i class="icon-globe"></i> {{ photo.location.name }}{% endif %}
                         {% if photo.exif.Model %}
