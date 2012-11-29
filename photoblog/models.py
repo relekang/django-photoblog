@@ -79,14 +79,17 @@ class Photo (models.Model):
         exif_data = cache.get(self.exif_cache_key())
         if exif_data is None:
             data = {}
-            photo = Image.open(self.file)
-            info = photo._getexif()
-            for tag, value in info.items():
-                decoded = TAGS.get(tag, tag)
-                data[decoded] = value
+            try:
+                photo = Image.open(self.file)
+                info = photo._getexif()
+                for tag, value in info.items():
+                    decoded = TAGS.get(tag, tag)
+                    data[decoded] = value
 
-            cache.set(self.exif_cache_key(), data)
-            exif_data = data
+                cache.set(self.exif_cache_key(), data)
+                exif_data = data
+            except:
+                exif_data = None
 
         return exif_data
 
