@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from sorl.thumbnail import get_thumbnail
+from sorl.thumbnail.templatetags.thumbnail import is_portrait
 
 try:
     from PIL import Image
@@ -62,10 +63,16 @@ class Photo (models.Model):
         return thumb
 
     def thumb_big(self):
-        return self.thumb(geometry_string='800')
+        if is_portrait(self.file):
+            return self.thumb(geometry_string='x800')
+        else:
+            return self.thumb(geometry_string='800')
 
     def thumb_medium(self):
-        return self.thumb(geometry_string='400')
+        if is_portrait(self.file):
+            return self.thumb(geometry_string='x400')
+        else:
+            return self.thumb(geometry_string='400')
 
     def thumb_small(self):
         return self.thumb(geometry_string='200x200', crop='center')
