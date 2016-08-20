@@ -1,4 +1,4 @@
-# django-photoblog
+# django-photoblog [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 ## Install
     git clone git@github.com:relekang/django-photoblog.git
     cd django-photoblog
